@@ -8,6 +8,9 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    bom_img = pg.Surface((20,20)) #練習１
+    pg.draw.circle(bom_img, (255,0,0), (10, 10), 10)#練習１
+    bom_img.set_colorkey((0, 0, 0))#練習１
     tmr = 0
 
     while True:
