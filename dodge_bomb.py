@@ -19,6 +19,8 @@ def check_bound(scr_rct, obj_rct):#練習５
     if obj_rct.top < scr_rct.top or scr_rct.bottom < obj_rct.bottom:
         tate = False
     return yoko, tate
+
+
 def main():
     pg.display.set_caption("逃げろ！こうかとん")
     screen = pg.display.set_mode((1600, 900))
