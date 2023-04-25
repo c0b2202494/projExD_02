@@ -38,8 +38,12 @@ def main():
     bb_rct = bb_img.get_rect()#練習３
     bb_rct.center = x, y#練習３
     
-    accs = [a for a in range(1, 11)]
+    accs = [a for a in range(1, 11)]#加速度
     bb_imgs = []
+
+    font = pg.font.Font(None, 100)
+    endtxt = font.render("GAME OVER", True, (255, 0, 0))
+    
     tmr = 0
 
     while True:
@@ -54,14 +58,15 @@ def main():
         for k, mv, in delta.items():#練習４
             if key_lst[k]:#練習４
                 kk_rct.move_ip(mv)#練習４
-        
+    
+
         for r in range(1, 11):
             bb_img = pg.Surface((20*r, 20*r))
             pg.draw.circle(bb_img, (255, 0, 0), (10*r, 10*r), 10*r)
             bb_imgs.append(bb_img)
 
-        avx, avy = vx*accs[min(tmr//1000, 9)], vy*accs[min(tmr//1000, 9)]
-        bb_img = bb_imgs[min(tmr//1000, 9)]
+        avx, avy = vx*accs[min(tmr//1000, 9)], vy*accs[min(tmr//1000, 9)]#爆弾の速度を加速させる
+        bb_img = bb_imgs[min(tmr//1000, 9)]#爆弾を大きくする
         bb_img.set_colorkey((0, 0, 0))
 
         if check_bound(screen.get_rect(), kk_rct) != (True, True):#練習５
@@ -80,6 +85,14 @@ def main():
         screen.blit(bb_img, bb_rct)#練習３
 
         if kk_rct.colliderect(bb_rct):  # 練習６
+            kk_img = pg.image.load("ex02/fig/8.png")
+            kk_img = pg.transform.rotozoom(kk_img, 0, 1.0)
+            kk_img = pg.transform.scale(kk_img, (100, 100))#こうかとんのがぞうを切り替え
+            screen.blit(bg_img, [0, 0])
+            screen.blit(endtxt, (600, 300))#GAME OVERと表示
+            screen.blit(kk_img, kk_rct)
+            pg.display.update()
+            time.sleep(3)
             return
         
 
